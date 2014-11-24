@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      template="../../templates/ui.xhtml">
+
+    <ui:define name="content">
+        <h:form id="userDetailForm" rendered="#{loginBean.user.roles ne null}" >
+            <p:panelGrid id="userDetailPanelGrid" columns="2" style="margin:0 auto;">
+                <f:facet name="header">
+                    User Detail
+                </f:facet>
+                <p:panelGrid id="panelGrid1" columns="2" style="margin:0 auto;">
+                    <h:outputText value="Username:" />
+                    <h:outputText value="#{employeeBean.selectedUser.username}" />
+
+                    <h:outputText value="Name:" />
+                    <h:outputText value="#{employeeBean.selectedEmployee.name}" />
+
+                    <h:outputText value="Job Role:" />
+                    <h:outputText value="#{employeeBean.selectedEmployee.jobRole}" />
+
+                    <h:outputText value="Isert Time:" />
+                    <h:outputText value="#{employeeBean.selectedEmployee.insertTime}" />
+                </p:panelGrid>
+                
+                <p:panelGrid id="panelGrid2" columns="2" style="margin:0 auto;">
+                    <h:outputText value="Department:" />
+                    <p:commandLink actionListener="#{employeeBean.showEmployees}" update=":userDetailForm:employeesDatatable">
+                        <h:outputText value="#{employeeBean.selectedDepartment.departmentName}"/>
+                    </p:commandLink>
+                </p:panelGrid>
+                
+                <p:panelGrid id="panelGrid3" columns="2" style="margin:0 auto;">
+                    <h:outputText value="Address:" />
+                    <h:outputText value="#{employeeBean.selectedAddress.address} #{employeeBean.selectedAddress.address2}" />
+
+                    <h:outputText value="Phone:" />
+                    <h:outputText value="#{employeeBean.selectedAddress.phone}" />
+                    
+                    <h:outputText value="District:" />
+                    <h:outputText value="#{employeeBean.selectedAddress.district}" />
+
+                    <h:outputText value="Postal Code:" />
+                    <h:outputText value="#{employeeBean.selectedAddress.postalCode}" />
+                </p:panelGrid>
+                
+                <p:panelGrid id="panelGrid4" columns="2" style="margin:0 auto;">
+                    <h:outputText value="City:" />
+                    <h:outputText value="#{employeeBean.selectedCity.city}" />
+
+                    <h:outputText value="Country:" />
+                    <h:outputText value="#{employeeBean.selectedCountry.country}" />
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="Change password" onclick="PF('changePasswordEmployee').show();"
+                                     title="Change password" icon="ui-icon-arrowrefresh-1-w"
+                                     rendered="#{userBean.selectedUser.roles ne userBean.roleAdmin}"/>
+                </f:facet>
+            </p:panelGrid>
+            
+            <br/>
+            
+            <p:dataTable id="employeesDatatable" value="#{employeeBean.empsList}" widgetVar="employeesDataTable"
+                         var="employee" paginator="true" rows="3"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         lazy="false" rowsPerPageTemplate="3,4,5">
+                <f:facet name="header">
+                    Employees <h:outputText value="#{employeeBean.deptName}" rendered="#{employeeBean.deptName ne null}" />
+                </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{employee.name}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Job Role"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{employee.jobRole}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Inserte Date"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{employee.insertTime}"></h:outputText>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="Clear" actionListener="#{employeeBean.reset}" update=":userDetailForm:employeesDatatable" icon="ui-icon-circle-close" />
+                </f:facet>
+            </p:dataTable>
+        
+            <br/>
+        
+            <p:panelGrid id="logoutPanelGrid" columns="1" style="margin:0 auto;">
+                <f:facet name="header">
+                    Logout
+                </f:facet>
+                <p:commandButton value="Logout" action="#{loginBean.logout}" ajax="false" icon="ui-icon-check" />
+            </p:panelGrid>
+        </h:form>
+        
+        <p:dialog id="changePasswordDialog" header="Change password"
+                  widgetVar="changePasswordEmployee" >
+            <h:form id="changePasswordForm">
+                <p:growl id="changePasswordMessage" showDetail="true" />
+                <p:panelGrid id="displayChangePassword" columns="2" style="margin:0 auto;">
+                    <h:outputText value="Old password :" />
+                    <h:inputSecret value="#{userBean.password}" required="true" requiredMessage="Please Enter Password!" />
+
+                    <h:outputText value="New password :" />
+                    <h:inputSecret value="#{userBean.newPassword}" required="true" requiredMessage="Please Enter New Password!"/>
+
+                    <h:outputText value="Repeat new password :" />
+                    <h:inputSecret value="#{userBean.repeatedPassword}" required="true" requiredMessage="Please Repeat New Password!"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" update="changePasswordMessage" process="changePasswordForm"
+                                         action="#{userBean.changePasswordFromDialog}" icon="ui-icon-disk">
+                            <!-- <p:ajax event="click" oncomplete="tryIfDialogCloseable();"/>
+                            <p:remoteCommand id="remoteCommandDialogCloseableId" name="tryIfDialogCloseable"
+                                             action="{employeeBean.doSuccsess}" onsuccess="PF('changePasswordEmployee').hide()" /> -->
+                        </p:commandButton>
+                        <p:commandButton value="Cancelar" onclick="PF('changePasswordEmployee').hide()" icon="ui-icon-circle-close"/> 
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+    
+</ui:composition>
