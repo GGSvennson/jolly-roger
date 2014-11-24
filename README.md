@@ -1,4 +1,4 @@
-jolly-roger
+HibernateWebAppGitHub
 ===========
 
 Hibernate Primefaces webapp.
