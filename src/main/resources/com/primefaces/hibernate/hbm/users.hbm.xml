@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="com.primefaces.hibernate.model.Users" table="users">
+    <id column="id" name="id" type="java.lang.Integer">
+      <generator class="native"/>
+    </id>
+    <one-to-one cascade="save-update, delete" class="com.primefaces.hibernate.model.Employees" name="employee"/>
+    <property name="username" type="java.lang.String">
+      <column name="username"/>
+    </property>
+    <property name="password" type="java.lang.String">
+      <column name="password"/>
+    </property>
+    <property access="property" insert="true" name="roles" not-null="true" type="com.primefaces.hibernate.model.RolesUserType" update="true">
+      <column name="roles_user_type"/>
+    </property>
+  </class>
+</hibernate-mapping>
