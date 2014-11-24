@@ -12,3 +12,5 @@ try how it works.
 
 There are two kinds of users, the Administrator and the Users. The Administrator can operate on the site while the
 Users can only view. The site was deployed in Tomcat 8.0.9 TomEE.
+
+Captcha is implemented as an input component with a built-in validator that is integrated with reCaptcha. reCAPTCHA is a free service to protect your website from spam and abuse provided by Google - See more at: https://www.google.com/recaptcha/intro/index.html
