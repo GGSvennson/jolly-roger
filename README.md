@@ -1,4 +1,4 @@
-HibernateWebAppGitHub
+HibernateWebApp
 ===========
 
 Hibernate Primefaces webapp.
