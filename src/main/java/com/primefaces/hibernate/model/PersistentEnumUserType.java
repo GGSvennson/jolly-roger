@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.primefaces.hibernate.model;
 
 import java.io.Serializable;
@@ -15,11 +10,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.UserType;
 
-/**
- *
- * @author Administrador
- * @param <E>
- */
 public abstract class PersistentEnumUserType<T extends PersistentEnum> implements UserType {
     
     private Class<T> clazz = null;
