@@ -1,16 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/HibernateWebApp">
-    <!--
-  <Resource
-      auth="Container"
-      driverClassName="com.mysql.jdbc.Driver"
-      maxIdle="30"
-      maxTotal="100"
-      maxWaitMillis="10000"
-      name="jdbc/hibernatedev"
-      username="josealv_root"
-      password="josealv_dakhla0563"
-      type="javax.sql.DataSource"
-      url="jdbc:mysql://localhost:3306/josealv_hibernatedev"/>
-    -->  
-</Context>
+<Context antiJARLocking="true" path="/HibernateWebApp"/>
