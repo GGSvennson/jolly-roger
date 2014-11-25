@@ -7,31 +7,15 @@ package com.primefaces.hibernate.model;
 
 import java.io.Serializable;
 import java.util.Date;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.ManyToOne;
-//import javax.persistence.OneToOne;
 
-/**
- *
- * @author Administrador
- */
 public class Employees implements Serializable {
     
     private Integer id;
     private String name;
     private String jobRole;
     private Date insertTime;
-    
-    //@JoinColumn(name = "address_id", referencedColumnName = "address_id")
-    //@ManyToOne(optional = false)
     private Address address;
-    
-    //@JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    //@OneToOne(optional = false)
     private Users user;
-    
-    //@JoinColumn(name = "department_id", referencedColumnName = "department_id")
-    //@ManyToOne
     private Department department;
     
     public Employees() {

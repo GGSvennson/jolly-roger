@@ -8,10 +8,6 @@ package com.primefaces.hibernate.model;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- *
- * @author Administrador
- */
 public class Department implements Serializable {
    
     private Long departmentId;

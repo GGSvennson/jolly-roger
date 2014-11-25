@@ -8,30 +8,7 @@ package com.primefaces.hibernate.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-/*
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-*/
 
-/**
- *
- * @author Administrador
- */
 public class Address implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -41,17 +18,9 @@ public class Address implements Serializable {
     private String address2;
     private String district;
     private String postalCode;
-    
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     private String phone;
-    
-    //@Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
-    
-    //@ManyToOne(optional = false)
     private City city;
-    
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
     private List<Employees> employeesList;
 
     public Address() {
