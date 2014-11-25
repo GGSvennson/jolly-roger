@@ -115,6 +115,6 @@ public class Employees implements Serializable {
 
     @Override
     public String toString() {
-        return "com.journaldev.hibernate.model.Employee[ Id=" + id + " ]";
+        return String.format("Employee[%d, %s]", id, name);
     }
 }
