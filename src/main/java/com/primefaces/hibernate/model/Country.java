@@ -8,6 +8,7 @@ package com.primefaces.hibernate.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+/*
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,38 +24,22 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+*/
 
 /**
  *
  * @author Administrador
  */
-@Entity
-@Table(name = "country")
-@NamedQueries({
-    @NamedQuery(name = "Country.findAll", query = "SELECT c FROM Country c")})
 public class Country implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "country_id")
     private Short countryId;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "country")    
     private String country;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "last_update")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryId")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "countryId")
     private List<City> cityList;
 
     public Country() {

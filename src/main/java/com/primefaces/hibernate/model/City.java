@@ -8,6 +8,7 @@ package com.primefaces.hibernate.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+/*
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,42 +26,27 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+*/
 
 /**
  *
  * @author Administrador
  */
-@Entity
-@Table(name = "city")
-@NamedQueries({
-    @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c")})
 public class City implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "city_id")
     private Short cityId;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "city")
     private String city;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "last_update")
-    @Temporal(TemporalType.TIMESTAMP)
+
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "cityId")
     private List<Address> addressList;
     
-    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
-    @ManyToOne(optional = false)
+    //@JoinColumn(name = "country_id", referencedColumnName = "country_id")
+    //@ManyToOne(optional = false)
     private Country country;
 
     public City() {

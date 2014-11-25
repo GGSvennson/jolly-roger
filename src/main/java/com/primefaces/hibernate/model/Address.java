@@ -8,6 +8,7 @@ package com.primefaces.hibernate.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+/*
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,63 +26,32 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+*/
 
 /**
  *
  * @author Administrador
  */
-@Entity
-@Table(name = "address")
-@NamedQueries({
-    @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")})
 public class Address implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "address_id")
     private Short addressId;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "address")
     private String address;
-    
-    @Size(max = 50)
-    @Column(name = "address2")
     private String address2;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "district")
     private String district;
-    
-    @Size(max = 10)
-    @Column(name = "postal_code")
     private String postalCode;
     
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "phone")
     private String phone;
     
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "last_update")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdate;
     
-    @JoinColumn(name = "city_id", referencedColumnName = "city_id")
-    @ManyToOne(optional = false)
+    //@ManyToOne(optional = false)
     private City city;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "addressId")
     private List<Employees> employeesList;
 
     public Address() {
