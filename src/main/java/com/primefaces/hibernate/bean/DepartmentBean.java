@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.primefaces.hibernate.bean;
 
 import com.primefaces.hibernate.dao.DepartmentDAO;
@@ -23,10 +18,6 @@ import org.hibernate.SessionFactory;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-/**
- *
- * @author Administrador
- */
 @ManagedBean(name = "departmentBean")
 @ViewScoped
 public class DepartmentBean implements Serializable {

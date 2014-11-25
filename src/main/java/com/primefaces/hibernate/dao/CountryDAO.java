@@ -1,22 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.primefaces.hibernate.dao;
 
 import com.primefaces.hibernate.model.City;
 import com.primefaces.hibernate.model.Country;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-/**
- *
- * @author Administrador
- */
 public class CountryDAO {
     
     public CountryDAO() {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.primefaces.hibernate.bean;
 
 import com.primefaces.hibernate.dao.AddressDAO;
@@ -26,10 +21,6 @@ import javax.faces.bean.ViewScoped;
 import javax.servlet.http.HttpSession;
 import org.hibernate.SessionFactory;
 
-/**
- *
- * @author Administrador
- */
 @ManagedBean(name = "employeeBean")
 @ViewScoped
 public class EmployeeBean implements Serializable {

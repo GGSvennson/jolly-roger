@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.primefaces.hibernate.util;
 
 import javax.faces.context.FacesContext;
 
-/**
- *
- * @author Administrador
- */
 public class FacesUtil {
 
     // Getters -----------------------------------------------------------------------------------

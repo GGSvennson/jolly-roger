@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.primefaces.hibernate.bean;
 
 import java.io.Serializable;
@@ -22,10 +17,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import org.hibernate.SessionFactory;
 
-/**
- *
- * @author Administrador
- */
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
