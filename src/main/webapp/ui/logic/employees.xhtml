@@ -41,27 +41,6 @@
                     </f:facet>
                     <h:outputText value="#{employee.insertTime}"></h:outputText>
                 </p:column>
-                <!--
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Edit"></h:outputText>
-                    </f:facet>
-                    <p:commandButton value="Edit Employee" actionListener="{userBean.openEditEmployeeDialog}"
-                                     update=":employeeListForm:growl" title="Edit Employee" icon="ui-icon-arrowrefresh-1-w" >
-                        <f:setPropertyActionListener target="{userBean.employeeId}" value="{employee.id}" />
-                    </p:commandButton>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Delete"></h:outputText>
-                    </f:facet>
-                    <p:commandButton value="Delete Employee" actionListener="{userBean.deleteEmployee}" update=":employeeListForm:growl" icon="ui-icon-trash">
-                        <p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/>
-                        <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterDelete"
-                            actionListener="{userBean.updateData}" update="dataTable"/>
-                    </p:commandButton>
-                </p:column>
-                -->
                 <f:facet name="footer">
                     <p:commandButton value="New Employee" onclick="PF('createEmployee').show();" icon="ui-icon-star" title="Create new employee"/>
                     <p:commandButton value="Edit Employee" actionListener="#{userBean.openEditEmployeeDialog}"
