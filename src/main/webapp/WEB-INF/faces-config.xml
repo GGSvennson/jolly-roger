@@ -28,10 +28,5 @@
         <managed-bean-class>com.primefaces.hibernate.view.GuestPreferences</managed-bean-class>
     
         <managed-bean-scope>session</managed-bean-scope></managed-bean>
-    <managed-bean>
-        <managed-bean-name>scheduleController</managed-bean-name>
-        <managed-bean-class>com.primefaces.hibernate.view.ScheduleController</managed-bean-class>
-    
-        <managed-bean-scope>view</managed-bean-scope></managed-bean>
     
 </faces-config>
