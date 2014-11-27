@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.hibernate</groupId>
-    <artifactId>HibernateWebAppGitHub</artifactId>
+    <artifactId>jolly-roger</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>HibernateWebAppGitHub</name>
+    <name>jolly-roger</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
