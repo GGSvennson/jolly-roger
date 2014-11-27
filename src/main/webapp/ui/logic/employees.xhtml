@@ -84,12 +84,8 @@
                     <h:outputText value="Name :"></h:outputText>
                     <p:inputText value="#{userBean.selectedEmployee.name}" />
 
-                    <h:outputLabel for="userRoles" value="Roles" />
-                    <h:selectOneMenu id="userRoles" value="#{userBean.newUser.roles}" >
-                        <f:selectItem itemLabel="#{userBean.tmpUser.roles}" itemValue="#{userBean.tmpUser.roles}" />
-                        <f:selectItems value="#{userBean.roleses}" var="roles"
-                                       itemValue="#{roles}" itemLabel="#{roles.role}"/>
-                    </h:selectOneMenu>
+                    <h:outputText value="Roles :" />
+                    <h:outputLabel value="#{userBean.tmpUser.roles}" />
                     
                     <h:outputText value="Role :"></h:outputText>
                     <p:inputText value="#{userBean.selectedEmployee.jobRole}" />

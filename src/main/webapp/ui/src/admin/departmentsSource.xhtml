@@ -209,6 +209,9 @@ public class DepartmentBean implements Serializable {
         if(null == selectedDepartment) {
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("You have to select a row by clicking on it"));
+        } else if(selectedDepartment.getDepartmentName().equals("Administration")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("The Administration department can not be edited"));
         } else {
             RequestContext rc = RequestContext.getCurrentInstance();
             rc.execute("PF('editDepartment').show()");

@@ -132,12 +132,30 @@ public class DepartmentDAO {
         session.close();
     }
     
+    public static List<Department> listDepartmentsExceptAdministration(SessionFactory sessionFactory) {
+        
+        Session session = sessionFactory.openSession();
+        //start transaction
+        session.beginTransaction();
+        
+        String hql = "from Department d where d.departmentName not in "
+                + "(select d1.departmentName from Department d1 where d1.departmentName like 'Administration') "
+                + "order by d.departmentName";
+        
+        List<Department> depts = (List<Department>) session.createQuery(hql).list();
+        //Commit transaction
+        session.getTransaction().commit();
+        session.close();
+        
+        return depts;
+    }
+    
     public static List<Department> listDepartments(SessionFactory sessionFactory) {
         
         Session session = sessionFactory.openSession();
         //start transaction
         session.beginTransaction();
-        List<Department> depts = (List<Department>) session.createQuery("from Department").list();
+        List<Department> depts = (List<Department>) session.createQuery("from Department d order by d.departmentName").list();
         //Commit transaction
         session.getTransaction().commit();
         session.close();

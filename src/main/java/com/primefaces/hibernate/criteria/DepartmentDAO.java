@@ -9,8 +9,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 
 public class DepartmentDAO {
     
@@ -106,14 +110,11 @@ public class DepartmentDAO {
     public static void deleteDepartment(SessionFactory sessionFactory, Department department) {
         
         Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
         
-        //start transaction
-        session.beginTransaction();
-        //Update the Model object
-        String hql = "from Employees e where e.department = :department";
-        List<Employees> emps = (List<Employees>) session.createQuery(hql)
-                                .setEntity("department", department)
-                                .list();
+        Criteria criteria = session.createCriteria(Employees.class)
+                .add(Restrictions.eq("department", department));
+        List<Employees> emps = criteria.list();
         
         while(!emps.isEmpty()) {
             Employees emp = emps.remove(0);
@@ -124,10 +125,30 @@ public class DepartmentDAO {
             session.clear();
         }
         session.delete(department);
-        //Commit transaction
-        session.getTransaction().commit();
         
+        tx.commit();
         session.close();
+    }
+    
+    public static List<Department> listDepartmentsExceptAdministration(SessionFactory sessionFactory) {
+        
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+        
+        DetachedCriteria subquery = DetachedCriteria.forClass(Department.class)
+                .add(Restrictions.like("departmentName", "Administration"))
+                .setProjection(Projections.property("departmentName"));
+
+        Criteria criteria = session.createCriteria(Department.class)
+                .add(Subqueries.propertyNotIn("departmentName", subquery))
+                .addOrder(Order.asc("departmentName"));
+        
+        List<Department> depts = criteria.list();
+        
+        tx.commit();
+        session.close();
+        
+        return depts;
     }
     
     public static List<Department> listDepartments(SessionFactory sessionFactory) {
@@ -135,7 +156,9 @@ public class DepartmentDAO {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         
-        List<Department> depts = session.createCriteria(Department.class).list();
+        List<Department> depts = session.createCriteria(Department.class)
+                .addOrder(Order.asc("departmentName"))
+                .list();
         
         tx.commit();
         session.close();

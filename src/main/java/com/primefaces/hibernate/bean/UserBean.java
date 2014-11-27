@@ -84,7 +84,7 @@ public class UserBean implements Serializable {
         users = UserDAO.listUsers(sessionFactory);
         
         employees = EmployeeDAO.listEmployees(sessionFactory);
-        departments = DepartmentDAO.listDepartments(sessionFactory);
+        departments = DepartmentDAO.listDepartmentsExceptAdministration(sessionFactory);
         addresses = AddressDAO.listAddress(sessionFactory);
         cities = CityDAO.listCities(sessionFactory);
         countries = CountryDAO.listCountries(sessionFactory);

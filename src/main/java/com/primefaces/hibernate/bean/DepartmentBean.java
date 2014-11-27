@@ -40,15 +40,6 @@ public class DepartmentBean implements Serializable {
         departments = DepartmentDAO.listDepartments(sessionFactory);
     }
     
-    /*
-    public void checkDepartmentName() {
-        Department dpt = DepartmentDAO.findDepartmentByName(sessionFactory, newDepartment.getDepartmentName());
-        if(null != dpt)
-            FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("Department name already exists"));
-    }
-    */
-    
     public void createDepartmentFromDialog() {
         if("".equals(newDepartment.getDepartmentName()))
             FacesContext.getCurrentInstance().addMessage(null,
@@ -76,6 +67,9 @@ public class DepartmentBean implements Serializable {
         if(null == selectedDepartment) {
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("You have to select a row by clicking on it"));
+        } else if(selectedDepartment.getDepartmentName().equals("Administration")) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage("The Administration department can not be edited"));
         } else {
             // PF('editDepartment').show()
             RequestContext rc = RequestContext.getCurrentInstance();
