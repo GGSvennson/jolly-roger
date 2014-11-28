@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      template="../../templates/ui.xhtml">
+
+    <ui:define name="content">
+        <h:form id="departmentListForm" rendered="#{loginBean.user.roles eq loginBean.roleAdmin}" >
+            <p:growl id="growl" showDetail="true" />
+            <p:dataTable id="dataTable" value="#{departmentBean.departments}" widgetVar="departmentsDataTable"
+                         var="department" paginator="true" rows="3"
+                         rowKey="#{department.departmentId}" selectionMode="single" selection="#{departmentBean.selectedDepartment}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         lazy="false" rowsPerPageTemplate="3,4,5">
+                <p:ajax event="rowSelect" listener="#{departmentBean.changeDepartment}" update=":departmentDetailForm:displayDepartmentDetail  :deleteDepartmentForm:deleteDepartmentPanelGrid" process="dataTable"/>
+                <f:facet name="header">
+                    Departments - Click on a row to see select a department
+                </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{department.departmentName}"></h:outputText>
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="New department" onclick="PF('createDepartment').show();" icon="ui-icon-star" title="Create new department"/>
+                    <p:commandButton value="Edit department" actionListener="#{departmentBean.openEditDepartmentDialog}" update=":departmentListForm:growl" title="Edit department" icon="ui-icon-arrowrefresh-1-w" />
+                    <p:commandButton value="Delete department" onclick="PF('deleteDepartment').show();" icon="ui-icon-trash"/>
+                    <p:commandButton value="Show employees" actionListener="#{departmentBean.showEmployees}" title="Show employees" update=":departmentListForm:employeesFromDepartment :departmentListForm:growl" icon="ui-icon-arrowrefresh-1-w" />
+                </f:facet>
+            </p:dataTable>
+        
+            <br/>
+        
+            <p:dataTable id="employeesFromDepartment" value="#{departmentBean.selectedEmployees}" widgetVar="employeesDataTable"
+                         var="employee" paginator="true" rows="3"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         lazy="false" rowsPerPageTemplate="3,4,5">
+                <f:facet name="header">
+                    Employees <h:outputText value="#{departmentBean.deptName}" rendered="#{departmentBean.selectedDepartment ne null}" />
+                </f:facet>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{employee.name}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Job Role"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{employee.jobRole}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Inserte Date"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{employee.insertTime}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+        
+            <br/>
+        
+            <p:panelGrid id="logoutPanelGrid" columns="1" style="margin:0 auto;">
+                <f:facet name="header">
+                    Logout
+                </f:facet>
+                <p:commandButton value="Logout" action="#{loginBean.logout}" ajax="false" icon="ui-icon-check" />
+            </p:panelGrid>
+        </h:form>
+        
+        <p:dialog id="deleteDialog" header="Delete department" widgetVar="deleteDepartment" >
+            <h:form id="deleteDepartmentForm">
+                <p:growl id="deleteMessage" showDetail="true" />
+                <p:panelGrid id="deleteDepartmentPanelGrid" columns="1" style="margin:0 auto;">
+                    <h:outputText value="Delete #{departmentBean.selectedDepartment.departmentName}?" />
+                    <p:panelGrid id="acceptCancelPanelGrid" columns="2" style="margin:0 auto;">
+                        <p:commandButton value="Delete department" actionListener="#{departmentBean.deleteDepartment}" onclick="PF('deleteDepartment').hide()" update=":deleteDepartmentForm:deleteMessage" icon="ui-icon-trash">
+                            <p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/>
+                            <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterDelete"
+                                             actionListener="#{departmentBean.updateData()}" update=":departmentListForm:dataTable"/>
+                        </p:commandButton>
+                        <p:commandButton value="Cancel" onclick="PF('deleteDepartment').hide()" icon="ui-icon-circle-close"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        
+        <p:dialog id="editDialog" header="Edit department" widgetVar="editDepartment">
+            <h:form id="departmentDetailForm">
+                <p:growl id="editMessage" showDetail="true" />
+                <p:panelGrid id="displayDepartmentDetail" columns="2" style="margin:0 auto;">
+                    <h:outputText value="Name :"></h:outputText>
+                    <h:inputText value="#{departmentBean.selectedDepartment.departmentName}" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" update="editMessage" process="departmentDetailForm"
+                                         action="# {departmentBean.editDepartmentFromDialog}" icon="ui-icon-disk">
+                            <p:ajax event="click" oncomplete="updateDataTableAfterEdit();"/>
+                            <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterEdit"
+                                             actionListener="#{departmentBean.updateData}"
+                                update=":departmentListForm:dataTable"/>
+                        </p:commandButton>
+                        <p:commandButton value="Cancel" onclick="PF('editDepartment').hide()" icon="ui-icon-circle-close"/>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id="createDialog" header="Create department" widgetVar="createDepartment">
+            <h:form id="newDepartmentForm">
+                <p:growl id="createMessage" showDetail="true" />
+                <p:panelGrid id="displayNewDepartment" columns="2" style="margin:0 auto;">
+
+                    <h:outputLabel for="dnm" value="Department Name : *"/>
+                    <p:inputText id="dnm" value="#{departmentBean.newDepartment.departmentName}" />
+                    
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" update="createMessage" process="newDepartmentForm"  
+                                         action="#{departmentBean.createDepartmentFromDialog}" icon="ui-icon-disk">
+                            <p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/>
+                            <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterCreate"
+                                             actionListener="#{departmentBean.updateData}"
+                                update=":departmentListForm:dataTable"/>
+                        </p:commandButton>
+                        <p:commandButton value="Cancel" onclick="PF('createDepartment').hide()" icon="ui-icon-circle-close"/>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+        
+    </ui:define>
+
+</ui:composition>
