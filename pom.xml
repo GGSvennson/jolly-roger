@@ -53,15 +53,6 @@
             <type>jar</type>
         </dependency>
         <dependency>
-<<<<<<< HEAD
-=======
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>4.0.5.RELEASE</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
->>>>>>> 6a06d0359bb3aa53f4d8274e549eaf3f8c381949
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -149,21 +140,6 @@
             <artifactId>gwt-user</artifactId>
             <version>2.0.4</version>
         </dependency>
-<<<<<<< HEAD
-=======
-        <!--
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        -->
->>>>>>> 6a06d0359bb3aa53f4d8274e549eaf3f8c381949
     </dependencies>
 
     <build>

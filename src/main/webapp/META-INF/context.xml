@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/HibernateWebApp"/>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/HibernateWebApp"/>
->>>>>>> 6a06d0359bb3aa53f4d8274e549eaf3f8c381949
