@@ -97,6 +97,12 @@ img.right {
     right:50px;
 }
 
+#globallanguageswitcher {
+    position:absolute;
+    top:5px;
+    right:600px;
+}
+
 /* Page */
 #page {
 	padding: 10px 0px;
