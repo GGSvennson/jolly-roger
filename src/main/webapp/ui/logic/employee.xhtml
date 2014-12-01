@@ -9,7 +9,7 @@
         <h:form id="userDetailForm" rendered="#{loginBean.user.roles ne null}" >
             <p:panelGrid id="userDetailPanelGrid" columns="2" style="margin:0 auto;">
                 <f:facet name="header">
-                    User Detail
+                    <h:outputText value="#{msgs['ui.logic.employee.user.detail']}" />
                 </f:facet>
                 <p:panelGrid id="panelGrid1" columns="2" style="margin:0 auto;">
                     <h:outputText value="Username:" />
@@ -119,6 +119,9 @@
                     <f:facet name="footer">
                         <p:commandButton value="Save" update="changePasswordMessage" process="changePasswordForm"
                                          action="#{userBean.changePasswordFromDialog}" icon="ui-icon-disk">
+                            <!-- <p:ajax event="click" oncomplete="tryIfDialogCloseable();"/>
+                            <p:remoteCommand id="remoteCommandDialogCloseableId" name="tryIfDialogCloseable"
+                                             action="{employeeBean.doSuccsess}" onsuccess="PF('changePasswordEmployee').hide()" /> -->
                         </p:commandButton>
                         <p:commandButton value="Cancelar" onclick="PF('changePasswordEmployee').hide()" icon="ui-icon-circle-close"/> 
                     </f:facet>
@@ -126,5 +129,5 @@
             </h:form>
         </p:dialog>
     </ui:define>
-
+    
 </ui:composition>

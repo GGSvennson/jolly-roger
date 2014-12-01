@@ -15,7 +15,7 @@
                          lazy="false" rowsPerPageTemplate="5,10,15">
                 <p:ajax event="rowSelect" listener="#{userBean.changeEmployee}" update=":employeeListForm:growl :employeeDetailForm:displayEmployeeDetail :deleteEmployeeForm:deleteEmployeePanelGrid" process="dataTable"/>
                 <f:facet name="header">
-                    Employees - Click on a row to select an employee
+                    <h:outputText value="#{msgs['ui.logic.employees.datatable.select.row']}" />
                 </f:facet>
                 <p:column>
                     <f:facet name="header">
@@ -41,6 +41,27 @@
                     </f:facet>
                     <h:outputText value="#{employee.insertTime}"></h:outputText>
                 </p:column>
+                <!--
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Edit"></h:outputText>
+                    </f:facet>
+                    <p:commandButton value="Edit Employee" actionListener="{userBean.openEditEmployeeDialog}"
+                                     update=":employeeListForm:growl" title="Edit Employee" icon="ui-icon-arrowrefresh-1-w" >
+                        <f:setPropertyActionListener target="{userBean.employeeId}" value="{employee.id}" />
+                    </p:commandButton>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Delete"></h:outputText>
+                    </f:facet>
+                    <p:commandButton value="Delete Employee" actionListener="{userBean.deleteEmployee}" update=":employeeListForm:growl" icon="ui-icon-trash">
+                        <p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/>
+                        <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterDelete"
+                            actionListener="{userBean.updateData}" update="dataTable"/>
+                    </p:commandButton>
+                </p:column>
+                -->
                 <f:facet name="footer">
                     <p:commandButton value="New Employee" onclick="PF('createEmployee').show();" icon="ui-icon-star" title="Create new employee"/>
                     <p:commandButton value="Edit Employee" actionListener="#{userBean.openEditEmployeeDialog}"
@@ -81,13 +102,14 @@
             <h:form id="employeeDetailForm">
                 <p:growl id="editMessage" showDetail="true" />
                 <p:panelGrid id="displayEmployeeDetail" columns="2" style="margin:0 auto;">
-                    <h:outputText value="Name :"></h:outputText>
+                    
+                    <h:outputText value="Name :" />
                     <p:inputText value="#{userBean.selectedEmployee.name}" />
-
+                    
                     <h:outputText value="Roles :" />
                     <h:outputLabel value="#{userBean.tmpUser.roles}" />
                     
-                    <h:outputText value="Role :"></h:outputText>
+                    <h:outputText value="Role :" />
                     <p:inputText value="#{userBean.selectedEmployee.jobRole}" />
 
                     <p:outputLabel for="button" value="Insert Time :" />
@@ -133,6 +155,7 @@
                         </p:commandButton>
                         <p:commandButton value="Cancel" actionListener="#{userBean.closeEditEmployeeDialog}" icon="ui-icon-circle-close"/>
                     </f:facet>
+                    
                 </p:panelGrid>
             </h:form>
         </p:dialog>

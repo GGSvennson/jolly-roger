@@ -15,7 +15,7 @@
                          lazy="false" rowsPerPageTemplate="3,4,5">
                 <p:ajax event="rowSelect" listener="#{departmentBean.changeDepartment}" update=":departmentDetailForm:displayDepartmentDetail  :deleteDepartmentForm:deleteDepartmentPanelGrid" process="dataTable"/>
                 <f:facet name="header">
-                    Departments - Click on a row to see select a department
+                    <h:outputText value="#{msgs['ui.logic.departments.datatable.select.row']}" />
                 </f:facet>
                 <p:column>
                     <f:facet name="header">
@@ -23,6 +23,31 @@
                     </f:facet>
                     <h:outputText value="#{department.departmentName}"></h:outputText>
                 </p:column>
+                <!--
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Employees in department"></h:outputText>
+                    </f:facet>
+                    <p:commandButton value="Show employees" process="dataTable" update=":departmentListForm:employeesFromDepartment"
+                                     actionListener="{departmentBean.showEmployees}" icon="ui-icon-check" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Edit"></h:outputText>
+                    </f:facet>
+                    <p:commandButton value="Edit department" actionListener="{departmentBean.openEditDepartmentDialog}" title="Edit department" icon="ui-icon-arrowrefresh-1-w" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Delete"></h:outputText>
+                    </f:facet>
+                    <p:commandButton value="Delete department" actionListener="{departmentBean.deleteDepartment}" update=":departmentListForm:growl" icon="ui-icon-trash">
+                        <p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/>
+                        <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterDelete"
+                                         actionListener="{departmentBean.updateData}" update="dataTable"/>
+                    </p:commandButton>
+                </p:column>
+                -->
                 <f:facet name="footer">
                     <p:commandButton value="New department" onclick="PF('createDepartment').show();" icon="ui-icon-star" title="Create new department"/>
                     <p:commandButton value="Edit department" actionListener="#{departmentBean.openEditDepartmentDialog}" update=":departmentListForm:growl" title="Edit department" icon="ui-icon-arrowrefresh-1-w" />
@@ -38,7 +63,7 @@
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          lazy="false" rowsPerPageTemplate="3,4,5">
                 <f:facet name="header">
-                    Employees <h:outputText value="#{departmentBean.deptName}" rendered="#{departmentBean.selectedDepartment ne null}" />
+                    <h:outputText value="#{msgs['ui.logic.departments.datatable.employees']}" /> <h:outputText value="#{departmentBean.deptName}" rendered="#{departmentBean.selectedDepartment ne null}" />
                 </f:facet>
                 <p:column>
                     <f:facet name="header">

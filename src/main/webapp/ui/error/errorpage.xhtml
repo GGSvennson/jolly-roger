@@ -1,5 +1,9 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -7,10 +11,10 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Exception Handler</title>
+    <title><h:outputText value="#{msgs['ui.error.error.page.title']}" /></title>
 </h:head>
 <h:form>
-    <h2>ExceptionHandler</h2>
+    <h2><h:outputText value="#{msgs['ui.error.error.page.body']}" /></h2>
     <p:ajaxExceptionHandler id="exception" type="java.lang.Throwable"
                                 update="exceptionPanel" onexception="alert('An Exception Occured ::')"/>
  
@@ -21,27 +25,3 @@
     </p:outputPanel>
 </h:form>
 </html>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <title>Exception Handler</title>
-</h:head>
-<h:form>
-    <h2>ExceptionHandler</h2>
-    <p:ajaxExceptionHandler id="exception" type="java.lang.Throwable"
-                                update="exceptionPanel" onexception="alert('An Exception Occured ::')"/>
- 
-    <p:outputPanel id="exceptionPanel" style="width:500px;height:200px;border:1px;font-size:10px;">
-        <p:outputLabel value="Exception Type :: #{pfExceptionHandler.type}"></p:outputLabel>
-        <p:outputLabel value="Exception Message :: #{pfExceptionHandler.message}"></p:outputLabel>
-        <p:outputLabel value="Exception StackTrace :: #{pfExceptionHandler.formattedStackTrace}"></p:outputLabel>
-    </p:outputPanel>
-</h:form>
-</html>
->>>>>>> 6a06d0359bb3aa53f4d8274e549eaf3f8c381949

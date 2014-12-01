@@ -20,10 +20,10 @@
                     </p:panelGrid>
                     
                     <p:panelGrid id="loginPanelGrid" columns="2" style="margin:0 auto;">
-                        <h:outputText value="Username :"></h:outputText>
+                        <h:outputText value="#{msgs['ui.login.form.username']}" />
                         <h:inputText value="#{loginBean.user.username}" />
 
-                        <h:outputText value="Password :"></h:outputText>
+                        <h:outputText value="#{msgs['ui.login.form.password']}" />
                         <h:inputSecret value="#{loginBean.user.password}"/>
                     </p:panelGrid>
                     

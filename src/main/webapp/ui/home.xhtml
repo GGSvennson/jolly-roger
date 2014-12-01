@@ -14,22 +14,31 @@
     </ui:define>
 
     <ui:define name="content">
-	<h1 class="title ui-widget-header ui-corner-all">Welcome to Hibernate - PrimeFaces ShowCase</h1>
+	<h1 class="title ui-widget-header ui-corner-all"><h:outputText value="#{msgs['ui.home.welcome.legend']}" /></h1>
             <div class="entry" style="line-height:200%">
-			PrimeFaces is a lightweight open source component suite for Java Server Faces 2.0 featuring 100+ rich set of JSF components.
-            Additional PrimeFaces Mobile module features a UI kit for developing mobile web applications.
-			 
-            <ul style="margin-top:5px;">
-                <li>Rich set of components (HtmlEditor, Dialog, AutoComplete, Charts and many more).</li>
-                <li>Built-in Ajax based on standard JSF 2.0 Ajax APIs.</li>
-                <li>Lightweight, one jar, zero-configuration and no required dependencies.</li>
-                <li>Native Ajax Push/Comet support.</li>
-                <li>Mobile UI kit to create mobile web applications for handheld devices.(IPhone, Palm, Android, Blackberry, Windows Mobile and more)</li>
-                <li>Skinning Framework with 30+ built-in themes and support for visual theme designer tool.</li>
-                <li>Extensive documentation with 450+ pages of User's Guide.</li>
-                <li>Large, vibrant and active user community.</li>
-                <li>Developed with "passion" from application developers to application developers.</li>
-            </ul>
+                <h3>Requirements</h3>
+                <ul style="margin-top:5px;">
+                    <li>NetBeans 8.0</li>
+                    <li>Latest Java (At least 1.7, 1.8 is supported)</li>
+                    <li>MySQL 5.6.17</li>
+                    <li>Tomcat 8.0.9 TomEE</li>
+                </ul>
+                
+                <p>This project is the implementation of a web site using Hibernate and Primefaces.
+                It was developed in NetBeans IDE 8.0.1 and uses MySQL as a database. The site was
+                deployed in Tomcat 8.0.9 TomEE.</p>
+
+                <p>Hibernate is implemented using Hibernate HQL and Criteria. Both have previously been
+                tested to validate proper operation.</p>
+                
+                <p>There are two kinds of users, Administrator and Users. The Administrator can operate
+                on the site while the Users can only view. The defaul user is Lisa who has role of
+                Administrator. The username/password of Lisa are lisa/lisapass being the password
+                encoded using the SHA256 algorithm.</p>
+                
+                <p>Captcha is implemented as an input component with a built-in validator that is integrated
+                with reCaptcha. reCAPTCHA is a free service to protect your website from spam and abuse
+                provided by Google - See more at: <a href="https://www.google.com/recaptcha/intro/index.html">reCAPTCHA</a></p>
             </div>
         
         <br/>
