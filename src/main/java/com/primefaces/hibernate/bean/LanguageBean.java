@@ -44,9 +44,6 @@ public class LanguageBean implements Serializable{
 	public void countryLocaleCodeChanged(ValueChangeEvent e){
             String newLocaleValue = e.getNewValue().toString();
             setLocale(newLocaleValue);
-            
-            FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(newLocaleValue));
 	}
         
         public void usLocaleCodeChanged() {
