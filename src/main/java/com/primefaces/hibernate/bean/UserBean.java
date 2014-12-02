@@ -120,7 +120,6 @@ public class UserBean implements Serializable {
         if( ("".equals(newUser.getUsername())) ||
                 ("".equals(newUser.getPassword()))
                 || ("".equals(password))
-                || (null == newUser.getRoles())
                 || ("".equals(newEmployee.getName()))
                 || ("".equals(newEmployee.getJobRole()))
                 || (null == newEmployee.getInsertTime())
@@ -134,6 +133,7 @@ public class UserBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("Passwords not match"));
         else {
+            newUser.setRoles(this.roleUser);
             UserDAO.addUser(sessionFactory, newAddress, newDepartment, newEmployee, newUser);
 
             RequestContext rc = RequestContext.getCurrentInstance();

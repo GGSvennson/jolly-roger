@@ -41,27 +41,6 @@
                     </f:facet>
                     <h:outputText value="#{employee.insertTime}"></h:outputText>
                 </p:column>
-                <!--
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Edit"></h:outputText>
-                    </f:facet>
-                    <p:commandButton value="Edit Employee" actionListener="{userBean.openEditEmployeeDialog}"
-                                     update=":employeeListForm:growl" title="Edit Employee" icon="ui-icon-arrowrefresh-1-w" >
-                        <f:setPropertyActionListener target="{userBean.employeeId}" value="{employee.id}" />
-                    </p:commandButton>
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Delete"></h:outputText>
-                    </f:facet>
-                    <p:commandButton value="Delete Employee" actionListener="{userBean.deleteEmployee}" update=":employeeListForm:growl" icon="ui-icon-trash">
-                        <p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/>
-                        <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterDelete"
-                            actionListener="{userBean.updateData}" update="dataTable"/>
-                    </p:commandButton>
-                </p:column>
-                -->
                 <f:facet name="footer">
                     <p:commandButton value="New Employee" onclick="PF('createEmployee').show();" icon="ui-icon-star" title="Create new employee"/>
                     <p:commandButton value="Edit Employee" actionListener="#{userBean.openEditEmployeeDialog}"
@@ -109,7 +88,7 @@
                     <h:outputText value="Roles :" />
                     <h:outputLabel value="#{userBean.tmpUser.roles}" />
                     
-                    <h:outputText value="Role :" />
+                    <h:outputText value="Job Role :" />
                     <p:inputText value="#{userBean.selectedEmployee.jobRole}" />
 
                     <p:outputLabel for="button" value="Insert Time :" />
@@ -176,10 +155,8 @@
                     <h:outputLabel for="rpwd" value="Repeat Password : *" />
                     <p:password id="rpwd" value="#{userBean.password}" />
                     
-                    <h:outputLabel for="userRoles" value="Roles: *" />
-                    <h:selectOneMenu id="userRoles" value="#{userBean.newUser.roles}" >
-                        <f:selectItems value="#{userBean.roleses}" />
-                    </h:selectOneMenu>
+                    <h:outputText value="Roles :" />
+                    <h:outputLabel value="#{userBean.roleUser}" />
 
                     <h:outputLabel for="nm" value="Name : *" />
                     <p:inputText id="nm" value="#{userBean.newEmployee.name}" />
