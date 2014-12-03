@@ -1,11 +1,11 @@
 package com.primefaces.hibernate.bean;
 
-import com.primefaces.hibernate.criteria.AddressDAO;
-import com.primefaces.hibernate.criteria.CityDAO;
-import com.primefaces.hibernate.criteria.CountryDAO;
-import com.primefaces.hibernate.criteria.DepartmentDAO;
-import com.primefaces.hibernate.criteria.EmployeeDAO;
-import com.primefaces.hibernate.criteria.UserDAO;
+import com.primefaces.hibernate.dao.AddressDAO;
+import com.primefaces.hibernate.dao.CityDAO;
+import com.primefaces.hibernate.dao.CountryDAO;
+import com.primefaces.hibernate.dao.DepartmentDAO;
+import com.primefaces.hibernate.dao.EmployeeDAO;
+import com.primefaces.hibernate.dao.UserDAO;
 import com.primefaces.hibernate.model.Address;
 import com.primefaces.hibernate.model.City;
 import com.primefaces.hibernate.model.Country;
@@ -56,8 +56,6 @@ public class UserBean implements Serializable {
     private List<City> cities = new ArrayList<>();
     private List<Country> countries = new ArrayList<>();
     private Roles[] roleses;
-    
-    private Users tmpUser = new Users();
     
     private final Roles roleAdmin = Roles.ADMINISTRATOR;
     private final Roles roleUser = Roles.USER;
@@ -215,10 +213,8 @@ public class UserBean implements Serializable {
         selectedEmployee = (Employees) event.getObject();
         Users user = UserDAO.findUserByEmployee(sessionFactory, selectedEmployee);
         if(user.getRoles() == Roles.USER) {
-            tmpUser = user;
             selectedDepartment = DepartmentDAO.findDepartmentOfEmployee(sessionFactory, selectedEmployee);
-            Short addressId = AddressDAO.findAddressOfEmployee(sessionFactory, selectedEmployee);
-            selectedAddress = AddressDAO.findAddressById(sessionFactory, addressId);
+            selectedAddress = AddressDAO.findAddressOfEmployee(sessionFactory, selectedEmployee);
             selectedCity = CityDAO.findCityOfAddress(sessionFactory, selectedAddress);
             selectedCountry = CountryDAO.findCountryOfCity(sessionFactory, selectedCity);
             //openEditEmployeeDialog();
@@ -238,7 +234,6 @@ public class UserBean implements Serializable {
     }
     
     private void reset() {
-        tmpUser = new Users();
         selectedUser = new Users();
         newUser = new Users();
         selectedEmployee = new Employees();
@@ -404,14 +399,6 @@ public class UserBean implements Serializable {
 
     public void setRoleses(Roles[] roleses) {
         this.roleses = roleses;
-    }
-
-    public Users getTmpUser() {
-        return tmpUser;
-    }
-
-    public void setTmpUser(Users tmpUser) {
-        this.tmpUser = tmpUser;
     }
 
     public Roles getRoleAdmin() {

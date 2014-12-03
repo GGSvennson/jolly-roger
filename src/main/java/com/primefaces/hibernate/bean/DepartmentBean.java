@@ -90,20 +90,31 @@ public class DepartmentBean implements Serializable {
                 new FacesMessage("Department: " + selectedDepartment.getDepartmentName() + " updated"));
     }
     
-    public void deleteDepartment() {
+    public void openDeleteDepartmentDialog() {
         if(null == selectedDepartment)
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage("You have to select a department"));
         else {
-            String deptName = selectedDepartment.getDepartmentName();
-
-            DepartmentDAO.deleteDepartment(sessionFactory, selectedDepartment);
-
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage("Department: " + deptName + " deleted"));
-
-            selectedDepartment = new Department();
+            String depmtName = selectedDepartment.getDepartmentName();
+            if("Administration".equals(depmtName))
+                FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("The Administration department can not be deleted"));
+            else {
+                // PF('deleteDepartment').show()
+                RequestContext rc = RequestContext.getCurrentInstance();
+                rc.execute("PF('deleteDepartment').show()");
+            }
         }
+    }
+    
+    public void deleteDepartment() {
+        String depmtName = selectedDepartment.getDepartmentName();
+        DepartmentDAO.deleteDepartment(sessionFactory, selectedDepartment);
+
+        FacesContext.getCurrentInstance().addMessage(null,
+            new FacesMessage("Department: " + depmtName + " deleted"));
+
+        selectedDepartment = new Department();
     }
     
     public void showDepartments() {

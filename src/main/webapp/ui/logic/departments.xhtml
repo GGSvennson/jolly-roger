@@ -24,10 +24,10 @@
                     <h:outputText value="#{department.departmentName}"></h:outputText>
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.new.department']}" onclick="PF('createDepartment').show();" icon="ui-icon-star" title="Create new department"/>
-                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.edit.department']}" actionListener="#{departmentBean.openEditDepartmentDialog}" update=":departmentListForm:growl" title="Edit department" icon="ui-icon-arrowrefresh-1-w" />
-                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.delete.department']}" onclick="PF('deleteDepartment').show();" icon="ui-icon-trash"/>
-                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.show.employees']}" actionListener="#{departmentBean.showEmployees}" title="Show employees" update=":departmentListForm:employeesFromDepartment :departmentListForm:growl" icon="ui-icon-arrowrefresh-1-w" />
+                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.new.department']}" onclick="PF('createDepartment').show();" icon="ui-icon-star" />
+                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.edit.department']}" actionListener="#{departmentBean.openEditDepartmentDialog}" update=":departmentListForm:growl" icon="ui-icon-arrowrefresh-1-w" />
+                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.delete.department']}" actionListener="#{departmentBean.openDeleteDepartmentDialog}" update=":departmentListForm:growl" icon="ui-icon-trash"/>
+                    <p:commandButton value="#{msgs['ui.logic.departments.datatable.footer.show.employees']}" actionListener="#{departmentBean.showEmployees}" update=":departmentListForm:employeesFromDepartment :departmentListForm:growl" icon="ui-icon-arrowrefresh-1-w" />
                 </f:facet>
             </p:dataTable>
         
@@ -38,7 +38,7 @@
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          lazy="false" rowsPerPageTemplate="3,4,5">
                 <f:facet name="header">
-                    <h:outputText value="#{msgs['ui.logic.departments.datatable.employees.header']}" /> <h:outputText value="#{departmentBean.deptName}" rendered="#{departmentBean.selectedDepartment ne null}" />
+                    <h:outputText value="#{msgs['ui.logic.departments.datatable.employees.header']} #{departmentBean.deptName}" />
                 </f:facet>
                 <p:column>
                     <f:facet name="header">
