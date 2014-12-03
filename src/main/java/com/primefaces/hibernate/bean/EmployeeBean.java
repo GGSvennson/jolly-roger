@@ -61,7 +61,7 @@ public class EmployeeBean implements Serializable {
     }
     
     public void showEmployees() {
-        deptName = selectedDepartment.getDepartmentName();
+        deptName = "( " + selectedDepartment.getDepartmentName() + " )";
         empsList = EmployeeDAO.findEmployeesInDepartment(sessionFactory, selectedDepartment);
     }
     
