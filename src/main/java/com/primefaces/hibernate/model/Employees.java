@@ -94,6 +94,6 @@ public class Employees implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Employee[%d, %s]", id, name);
+        return String.format("Employees[%d, %s]", id, name);
     }
 }
