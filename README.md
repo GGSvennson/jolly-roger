@@ -6,7 +6,7 @@ Hibernate Primefaces webapp.
 Requirements
 ------------
     - NetBeans 8.0
-    - Latest Java (At least 1.7, 1.8 is supported)
+    - Latest Java 1.8
     - MySQL 5.6.17
     - Tomcat 8.0.9 TomEE
 
