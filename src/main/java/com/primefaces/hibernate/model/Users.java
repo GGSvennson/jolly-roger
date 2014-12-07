@@ -75,6 +75,6 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("City[%d]", id);
+        return String.format("City[%d, %s]", id, username);
     }
 }

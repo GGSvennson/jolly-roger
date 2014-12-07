@@ -127,7 +127,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Address[%d, %s]", addressId, address);
+        return String.format("Address[%d, %s, %s]", addressId, address, address2);
     }
     
 }
