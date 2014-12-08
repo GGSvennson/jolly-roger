@@ -1,4 +1,4 @@
-package com.primefaces.hibernate.dao;
+package com.primefaces.hibernate.criteria.dao;
 
 import com.primefaces.hibernate.Idao.ICountryDAO;
 import com.primefaces.hibernate.generic.GenericDaoImpl;
@@ -7,8 +7,13 @@ import com.primefaces.hibernate.model.Country;
 import com.primefaces.hibernate.util.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Session;
 import org.apache.log4j.Logger;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 
 public class CountryDAO extends GenericDaoImpl<Country, Short> implements ICountryDAO {
     
@@ -37,11 +42,11 @@ public class CountryDAO extends GenericDaoImpl<Country, Short> implements ICount
         List<Country> countries = new ArrayList();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            session.beginTransaction();
-            countries = session.createQuery("from Country c where c.country = :name")
-                        .setString("name", name)
-                        .list();
-            session.getTransaction().commit();
+            Transaction tx = session.beginTransaction();
+            Criteria criteria = session.createCriteria(Country.class)
+                    .add(Restrictions.eq("country", name));
+            countries = criteria.list();
+            tx.commit();
         } catch (RuntimeException e) {
             LOG.error("CountryDAO - findCountryByName() failed, " + e.getMessage(), e);
         } finally {
@@ -60,14 +65,16 @@ public class CountryDAO extends GenericDaoImpl<Country, Short> implements ICount
         Country country = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            session.beginTransaction();
-            String hql = "from City c join fetch c.country where c.cityId = :cityId";
-            List<City> cities = session.createQuery(hql)
-                                .setShort("cityId", city.getCityId())
-                                .list();
-            if(cities.size() > 0)
-                country = cities.get(0).getCountry();
-            session.getTransaction().commit();
+            Transaction tx = session.beginTransaction();
+            List<Short> countryIds = session.createCriteria(City.class, "c")
+                    .createAlias("c.country", "country")
+                    .add(Restrictions.idEq(city.getCityId()))
+                    .setProjection(Property.forName("country.countryId"))
+                    .list();
+            Criteria criteria = session.createCriteria(Country.class)
+                    .add(Restrictions.in("countryId", countryIds));        
+            country = (Country) criteria.uniqueResult();        
+            tx.commit();
         } catch (RuntimeException e) {
             LOG.error("CountryDAO - findCountryFromCity() failed, " + e.getMessage(), e);
         } finally {
@@ -83,10 +90,9 @@ public class CountryDAO extends GenericDaoImpl<Country, Short> implements ICount
         List<Country> countries = new ArrayList();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            session.beginTransaction();
-            countries = session.createQuery("from Country c order by c.country")
-                        .list();
-            session.getTransaction().commit();
+            Transaction tx = session.beginTransaction();
+            countries = session.createCriteria(Country.class).list();
+            tx.commit();
         } catch (RuntimeException e) {
             LOG.error("CountryDAO - listCountries() failed, " + e.getMessage(), e);
         } finally {
