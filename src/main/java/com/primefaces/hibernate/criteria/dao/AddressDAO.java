@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 
 public class AddressDAO extends GenericDaoImpl<Address, Short> implements IAddressDAO {
@@ -88,28 +89,14 @@ public class AddressDAO extends GenericDaoImpl<Address, Short> implements IAddre
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             Transaction tx = session.beginTransaction();
-            Criteria criteria = session.createCriteria(Employees.class, "e")
+            List<Short> ids = session.createCriteria(Employees.class, "e")
                     .createAlias("e.address", "address")
-                    .add(Restrictions.idEq(employee.getId()));
-            ProjectionList columns = Projections.projectionList()
-                    .add(Projections.property("address.addressId"));
-            criteria.setProjection(columns);
-
-            List<Object[]> list = criteria.list();
-
-            Short addressId = (short)0;
-            for(Object[] arr : list){
-                for(Object ob: arr) {
-                    if(null != ob)
-                        if(ob instanceof Short)
-                            addressId = (Short)ob;
-                }
-            }
-
-            Criteria criteria1 = session.createCriteria(Address.class)
-                    .add(Restrictions.eq("addressId", addressId));
-            address = (Address) criteria1.uniqueResult();
-        
+                    .add(Restrictions.idEq(employee.getId()))
+                    .setProjection(Property.forName("address.addressId"))
+                    .list();
+            Criteria criteria = session.createCriteria(Address.class)
+                    .add(Restrictions.in("addressId", ids));
+            address = (Address) criteria.uniqueResult();
             tx.commit();
         } catch (RuntimeException e) {
             LOG.error("AddressDAO - findAddressOfEmployee() failed, " + e.getMessage(), e);
