@@ -92,6 +92,29 @@ public class EmployeesDAO extends GenericDaoImpl<Employees, Integer> implements 
     }
     
     @Override
+    public Employees findByUser(Users user) {
+        List<Employees> emps = new ArrayList<>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            emps = session.createQuery("from Employees e join fetch e.user where e.user = :user")
+                        .setEntity("user", user)
+                        .list();
+            session.getTransaction().commit();
+        } catch (RuntimeException e) {
+            LOG.error("EmployeesDAO - findEmployeeByUser() failed, " + e.getMessage(), e);
+        } finally {
+            session.flush();
+            session.close();
+        }
+        
+        if(emps.size() > 0)
+            return emps.get(0);
+        
+        return null;
+    }
+    
+    @Override
     public List<Employees> findFromDepartment(Department department) {
         List<Employees> emps = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();

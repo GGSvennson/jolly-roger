@@ -1,5 +1,6 @@
 package com.primefaces.hibernate.bean;
 
+import com.primefaces.hibernate.criteria.dao.EmployeesDAO;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -8,12 +9,12 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import com.primefaces.hibernate.dao.UsersDAO;
+import com.primefaces.hibernate.model.Employees;
 import com.primefaces.hibernate.model.Roles;
 import com.primefaces.hibernate.model.Users;
 import com.primefaces.hibernate.util.HttpSessionUtil;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import org.hibernate.SessionFactory;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
@@ -22,8 +23,7 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String message;
     private Users user = new Users();
-    
-    private SessionFactory sessionFactory;
+    private Employees employee = new Employees();
     
     private Roles roleAdmin = Roles.ADMINISTRATOR;
     private Roles roleUser = Roles.USER;
@@ -54,6 +54,14 @@ public class LoginBean implements Serializable {
     public void setUser(Users user) {
         this.user = user;
     }
+
+    public Employees getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employees employee) {
+        this.employee = employee;
+    }
  
     public String getMessage() {
         return message;
@@ -63,20 +71,15 @@ public class LoginBean implements Serializable {
         this.message = message;
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-    
     public void loginProject() throws IOException, NoSuchAlgorithmException {
         
         UsersDAO usersDAO = new UsersDAO();
         user = usersDAO.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         
         if (null != user) {
+            EmployeesDAO employeesDAO = new EmployeesDAO();
+            employee = employeesDAO.findByUser(user);
+            
             // get Http Session
             HttpSession session = HttpSessionUtil.getSession(true);
         

@@ -58,6 +58,15 @@ img.right {
     text-align: left;
 }
 
+#welcome {
+    position: absolute;
+    top:65px;
+    right:15px;
+	padding: 0;
+	height: 59px;
+    overflow: hidden;
+}
+
 /* Menu */
 #menu {
     position: absolute;

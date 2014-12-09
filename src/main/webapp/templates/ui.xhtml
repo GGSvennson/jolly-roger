@@ -44,14 +44,13 @@
 
 	<div id="header" class="ui-widget ui-widget-header">
             <div id="logo">
-                <h:graphicImage value="#{resource['images:logo.png']}" style="border: 0px;" alt="Logo" />
+                <a href="#{request.contextPath}/ui/home.jsf">
+                    <h:graphicImage value="#{resource['images:logo.png']}" style="border: 0px;" title="Home" alt="Logo" />
+                </a>
             </div>
             
-            <div id="menu" class="ui-widget">
-                <ul id="main">
-                    <li class="current_page_item"><a href="#{request.contextPath}/ui/home.jsf" style="background:url('../design/ui.png') no-repeat center left;">Home</a></li>
-                    <li><a href="http://www.primefaces.org/showcase-ext" style="background:url('../design/extensions.png') no-repeat center left"><h:outputText value="#{msgs['templates.ui.menu.extensions']}" /></a></li>
-                </ul>
+            <div id="menu">
+                <h:outputText value="#{msgs['templates.ui.menu.welcome']} #{loginBean.employee.name}" rendered="#{loginBean.user.roles ne null}" />
             </div>
             
             <div id="globallanguageswitcher">
