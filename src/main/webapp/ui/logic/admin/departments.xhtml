@@ -96,7 +96,7 @@
 
                     <f:facet name="footer">
                         <p:commandButton value="#{msgs['ui.logic.departments.edit.department.footer.button.save']}" update="editMessage" process="departmentDetailForm"
-                                         action="# {departmentBean.editDepartmentFromDialog}" icon="ui-icon-disk">
+                                         action="#{departmentBean.editDepartmentFromDialog}" icon="ui-icon-disk">
                             <p:ajax event="click" oncomplete="updateDataTableAfterEdit();"/>
                             <p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterEdit"
                                              actionListener="#{departmentBean.updateData}"
