@@ -16,7 +16,10 @@
                     </f:facet>
                     
                     <p:panelGrid id="captchaPanelGrid" columns="1" style="margin:0 auto;">
-                        <p:captcha label="Captcha" theme="white" />
+                        <p:captcha converterMessage="#{msgs['ui.login.form.captcha.converter']}"
+                                   requiredMessage="#{msgs['ui.login.form.captcha.required']}"
+                                   validatorMessage="#{msgs['ui.login.form.captcha.validator']}"
+                                   label="Captcha" theme="white" />
                     </p:panelGrid>
                     
                     <p:panelGrid id="loginPanelGrid" columns="2" style="margin:0 auto;">
