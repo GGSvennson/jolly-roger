@@ -145,9 +145,7 @@
                 <p:panelGrid id="displayNewEmployee" columns="2" style="margin:0 auto;">
 
                     <h:outputLabel for="username" value="#{msgs['ui.logic.employees.create.employee.username']}" />
-                    <p:inputText id="username" value="#{userBean.newUser.username}" >
-                        <p:ajax listener="#{userBean.checkUsername}" event="blur" update="createMessage" />
-                    </p:inputText>
+                    <p:inputText id="username" value="#{userBean.newUser.username}" />
                     
                     <h:outputLabel for="pwd" value="#{msgs['ui.logic.employees.create.employee.password']}" />
                     <p:password id="pwd" value="#{userBean.newUser.password}" label="Password" />

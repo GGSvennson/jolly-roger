@@ -115,16 +115,6 @@ public class UserBean implements Serializable {
         }
     }
     
-    public void checkUsername() {
-        UsersDAO usersDAO = new UsersDAO();
-        Users user = usersDAO.findByUsername(newUser.getUsername());
-        if(null != user)
-            FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(
-                        ResourceBundleBean.getResourceBundleString("UserBean.check.username")
-                ));
-    }
-    
     public void createEmployeeFromDialog() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         if( ("".equals(newUser.getUsername())) ||
                 ("".equals(newUser.getPassword()))
@@ -147,18 +137,26 @@ public class UserBean implements Serializable {
                 ));
         else {
             UsersDAO usersDAO = new UsersDAO();
-            newUser.setRoles(this.roleUser);
-            usersDAO.create(newAddress, newDepartment, newEmployee, newUser);
-
-            RequestContext rc = RequestContext.getCurrentInstance();
-            rc.execute("PF('createEmployee').hide()");
-
-            FacesContext.getCurrentInstance().addMessage(null,
+            Users user = usersDAO.findByUsername(newUser.getUsername());
+            if(null != user) {
+                FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(
-                            ResourceBundleBean.getResourceBundleString("UserBean.create.employee.new.employee.created")
+                            ResourceBundleBean.getResourceBundleString("UserBean.check.username")
                     ));
+            } else {
+                newUser.setRoles(this.roleUser);
+                usersDAO.create(newAddress, newDepartment, newEmployee, newUser);
 
-            reset();
+                RequestContext rc = RequestContext.getCurrentInstance();
+                rc.execute("PF('createEmployee').hide()");
+
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(
+                                ResourceBundleBean.getResourceBundleString("UserBean.create.employee.new.employee.created")
+                        ));
+
+                reset();
+            }
         }
     }
     
