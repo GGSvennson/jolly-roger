@@ -207,7 +207,7 @@
                     &lt;f:facet name="footer"&gt;
                         &lt;p:commandButton value="\#{msgs['ui.logic.employees.create.employee.footer.button.save']}" update="createMessage" process="newEmployeeForm"  
                                     action="\#{userBean.createEmployeeFromDialog}" icon="ui-icon-disk"&gt;
-                            &lt;p:ajax event="click" oncomplete="updateDataTableAfterDelete();"/&gt;
+                            &lt;p:ajax event="click" oncomplete="updateDataTableAfterCreate();"/&gt;
                             &lt;p:remoteCommand id="remoteCommandDeleteId" name="updateDataTableAfterCreate"
                                 actionListener="\#{userBean.updateData}"
                                 update=":employeeListForm:dataTable"/&gt;
