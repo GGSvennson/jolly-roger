@@ -28,6 +28,9 @@ public class DepartmentBean implements Serializable {
     private List<Employees> selectedEmployees = new ArrayList<>();
     private String deptName;
     
+    private DepartmentDAO departmentDAO;
+    private EmployeesDAO employeesDAO;
+    
     @ManagedProperty(value="#{resourceBundleBean}")
     private ResourceBundleBean resourceBundleBean;
     
@@ -36,12 +39,13 @@ public class DepartmentBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        DepartmentDAO departmentDAO = new DepartmentDAO();
+        departmentDAO = new DepartmentDAO();
+        employeesDAO = new EmployeesDAO();
+        
         departments = departmentDAO.list();
     }
     
     public void checkDepartmentName() {
-        DepartmentDAO departmentDAO = new DepartmentDAO();
         Department dpt = departmentDAO.findByName(newDepartment.getDepartmentName());
         if(null != dpt)
             if(dpt.getDepartmentName().equals("Administration"))
@@ -58,7 +62,6 @@ public class DepartmentBean implements Serializable {
                         ResourceBundleBean.getResourceBundleString("DepartmentBean.create.department.from.dialog.name.is.required")
                 ));
         else {
-            DepartmentDAO departmentDAO = new DepartmentDAO();
             Department dpt = departmentDAO.findByName(newDepartment.getDepartmentName());
             
             if(null != dpt)
@@ -104,7 +107,6 @@ public class DepartmentBean implements Serializable {
         if(selectedEmployees.size() > 0)
             selectedDepartment.setEmployees(selectedEmployees);
         
-        DepartmentDAO departmentDAO = new DepartmentDAO();
         departmentDAO.update(selectedDepartment);
         
         RequestContext rc = RequestContext.getCurrentInstance();
@@ -138,8 +140,6 @@ public class DepartmentBean implements Serializable {
     }
     
     public void deleteDepartment() {
-        DepartmentDAO departmentDAO = new DepartmentDAO();
-        
         departmentDAO.delete(selectedDepartment);
 
         FacesContext.getCurrentInstance().addMessage(null,
@@ -152,14 +152,12 @@ public class DepartmentBean implements Serializable {
     
     public void showDepartments() {
         if(departments.isEmpty()) {
-            DepartmentDAO departmentDAO = new DepartmentDAO();
             departments = departmentDAO.list();
         }
     }
     
     public void updateData() {
         departments.clear();
-        DepartmentDAO departmentDAO = new DepartmentDAO();
         departments = departmentDAO.list();
     }
     
@@ -175,7 +173,6 @@ public class DepartmentBean implements Serializable {
                         ResourceBundleBean.getResourceBundleString("DepartmentBean.show.employees.select.row")
                 ));
         } else {
-            EmployeesDAO employeesDAO = new EmployeesDAO();
             selectedEmployees = employeesDAO.findFromDepartment(selectedDepartment);
         }
         selectedDepartment = new Department();
@@ -219,6 +216,14 @@ public class DepartmentBean implements Serializable {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public DepartmentDAO getDepartmentDAO() {
+        return departmentDAO;
+    }
+
+    public EmployeesDAO getEmployeesDAO() {
+        return employeesDAO;
     }
 
     public ResourceBundleBean getResourceBundleBean() {
