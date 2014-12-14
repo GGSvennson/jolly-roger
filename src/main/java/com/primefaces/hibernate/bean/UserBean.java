@@ -68,6 +68,13 @@ public class UserBean implements Serializable {
     private String newPassword;
     private String repeatedPassword;
     
+    private UsersDAO usersDAO;
+    private EmployeesDAO employeesDAO;
+    private AddressDAO addressDAO;
+    private CityDAO cityDAO;
+    private CountryDAO countryDAO;
+    private DepartmentDAO departmentDAO;
+    
     @ManagedProperty(value="#{resourceBundleBean}")
     private ResourceBundleBean resourceBundleBean;
     
@@ -79,13 +86,16 @@ public class UserBean implements Serializable {
         HttpSession session = HttpSessionUtil.getSession(false);
         selectedUser = (Users) session.getAttribute("user");
         
-        UsersDAO usersDAO = new UsersDAO();
+        usersDAO = new UsersDAO();
+        employeesDAO = new EmployeesDAO();
+        addressDAO = new AddressDAO();
+        cityDAO = new CityDAO();
+        countryDAO = new CountryDAO();
+        departmentDAO = new DepartmentDAO();
+        
         users = usersDAO.list();
-        EmployeesDAO employeesDAO = new EmployeesDAO();
         employees = employeesDAO.list();
-        DepartmentDAO departmentDAO = new DepartmentDAO();
         departments = departmentDAO.listNotAdministration();
-        CountryDAO countryDAO = new CountryDAO();
         countries = countryDAO.list();
     }
     
@@ -102,7 +112,6 @@ public class UserBean implements Serializable {
                 ));
         } else {
             selectedUser.setPassword(LoginConverter.hash256(newPassword));
-            UsersDAO usersDAO = new UsersDAO();
             usersDAO.update(selectedUser);
             
             RequestContext rc = RequestContext.getCurrentInstance();
@@ -126,17 +135,20 @@ public class UserBean implements Serializable {
                 || (null == newCity)
                 || (null == newAddress)
                 || (null == newDepartment) ) {
+            
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(
                         ResourceBundleBean.getResourceBundleString("UserBean.create.employee.no.one.empty.field")
                 ));
+            
         } else if(!password.equals(newUser.getPassword()))
+            
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(
                         ResourceBundleBean.getResourceBundleString("UserBean.create.employee.passwords")
                 ));
+        
         else {
-            UsersDAO usersDAO = new UsersDAO();
             Users user = usersDAO.findByUsername(newUser.getUsername());
             if(null != user) {
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -193,7 +205,6 @@ public class UserBean implements Serializable {
                             ResourceBundleBean.getResourceBundleString("UserBean.edit.employee.from.dialog.no.one.field.empty")
                     ));
         } else {
-            EmployeesDAO employeesDAO = new EmployeesDAO();
             employeesDAO.update(selectedEmployee);
 
             RequestContext rc = RequestContext.getCurrentInstance();
@@ -221,9 +232,9 @@ public class UserBean implements Serializable {
     }
     
     public void closeDeleteEmployeeDialog() {
-        reset();
         RequestContext rc = RequestContext.getCurrentInstance();
         rc.execute("PF('deleteEmployee').hide()");
+        reset();
     }
     
     public void deleteEmployee() {
@@ -233,7 +244,6 @@ public class UserBean implements Serializable {
                         ResourceBundleBean.getResourceBundleString("UserBean.delete.employee")
                 ));
         } else {
-            EmployeesDAO employeesDAO = new EmployeesDAO();
             employeesDAO.delete(selectedEmployee);
         
             RequestContext rc = RequestContext.getCurrentInstance();
@@ -250,7 +260,6 @@ public class UserBean implements Serializable {
     
     public void showEmployees() {
         if(employees.isEmpty()) {
-            EmployeesDAO employeesDAO = new EmployeesDAO();
             employees = employeesDAO.list();
         }
     }
@@ -258,15 +267,12 @@ public class UserBean implements Serializable {
     public void updateData() {
         users.clear();
         employees.clear();
-        EmployeesDAO employeesDAO = new EmployeesDAO();
-        UsersDAO usersDAO = new UsersDAO();
         users = usersDAO.list();
         employees = employeesDAO.list();
     }
     
     public void changeEmployee(SelectEvent event) {
         selectedEmployee = (Employees) event.getObject();
-        UsersDAO usersDAO = new UsersDAO();
         Users user = usersDAO.findByEmployee(selectedEmployee);
         if(user.getRoles() != Roles.USER) {
             selectedEmployee = new Employees();
@@ -275,24 +281,18 @@ public class UserBean implements Serializable {
                         ResourceBundleBean.getResourceBundleString("UserBean.change.employee")
                 ));
         } else {
-            DepartmentDAO departmentDAO = new DepartmentDAO();
             selectedDepartment = departmentDAO.findOfEmployee(selectedEmployee);
-            AddressDAO addressDAO = new AddressDAO();
             selectedAddress = addressDAO.findOfEmployee(selectedEmployee);
-            CityDAO cityDAO = new CityDAO();
             selectedCity = cityDAO.findFromAddress(selectedAddress);
-            CountryDAO countryDAO = new CountryDAO();
             selectedCountry = countryDAO.findFromCity(selectedCity);
         }
     }
     
     public void loadCities() {
-        CityDAO cityDAO = new CityDAO();
         cities = cityDAO.findOfCountry(newCountry);
     }
     
     public void loadAddresses() {
-        AddressDAO addressDAO = new AddressDAO();
         addresses = addressDAO.findFromCity(newCity);
     }
     
@@ -502,6 +502,30 @@ public class UserBean implements Serializable {
 
     public void setRepeatedPassword(String repeatedPassword) {
         this.repeatedPassword = repeatedPassword;
+    }
+
+    public UsersDAO getUsersDAO() {
+        return usersDAO;
+    }
+
+    public EmployeesDAO getEmployeesDAO() {
+        return employeesDAO;
+    }
+
+    public AddressDAO getAddressDAO() {
+        return addressDAO;
+    }
+
+    public CityDAO getCityDAO() {
+        return cityDAO;
+    }
+
+    public CountryDAO getCountryDAO() {
+        return countryDAO;
+    }
+
+    public DepartmentDAO getDepartmentDAO() {
+        return departmentDAO;
     }
 
     public ResourceBundleBean getResourceBundleBean() {
