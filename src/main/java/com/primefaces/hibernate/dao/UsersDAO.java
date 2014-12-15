@@ -10,8 +10,6 @@ import org.hibernate.Session;
 
 import com.primefaces.hibernate.model.Users;
 import com.primefaces.hibernate.generic.GenericDaoImpl;
-import com.primefaces.hibernate.model.Address;
-import com.primefaces.hibernate.model.Department;
 import com.primefaces.hibernate.model.Employees;
 import com.primefaces.hibernate.util.HibernateUtil;
 import com.primefaces.hibernate.util.LoginConverter;
@@ -23,7 +21,7 @@ public class UsersDAO extends GenericDaoImpl<Users, Integer> implements IUsersDA
     private static final Logger LOG = Logger.getLogger(UsersDAO.class);
     
     @Override
-    public void create(Address address, Department department, Employees employee, Users user)
+    public void create(Employees employee, Users user)
             throws UnableToSaveException, NoSuchAlgorithmException, UnsupportedEncodingException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -31,8 +29,6 @@ public class UsersDAO extends GenericDaoImpl<Users, Integer> implements IUsersDA
             user.setPassword(LoginConverter.hash256(user.getPassword()));
             user.setEmployee(employee);
             employee.setUser(user);
-            employee.setDepartment(department);
-            employee.setAddress(address);
             session.save(user);
             session.getTransaction().commit();
         } catch (UnableToSaveException e) {

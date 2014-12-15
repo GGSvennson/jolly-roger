@@ -2,7 +2,6 @@ package com.primefaces.hibernate.criteria.dao;
 
 import com.primefaces.hibernate.Idao.IEmployeesDAO;
 import com.primefaces.hibernate.generic.GenericDaoImpl;
-import com.primefaces.hibernate.model.Address;
 import com.primefaces.hibernate.model.Department;
 import com.primefaces.hibernate.model.Employees;
 import com.primefaces.hibernate.model.Users;
@@ -24,23 +23,6 @@ import org.hibernate.criterion.Subqueries;
 public class EmployeesDAO extends GenericDaoImpl<Employees, Integer> implements IEmployeesDAO {
     
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(EmployeesDAO.class);
-    
-    @Override
-    public void create(Employees employee, Address address, Department department) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.beginTransaction();
-            employee.setAddress(address);
-            employee.setDepartment(department);
-            session.save(employee);
-            session.getTransaction().commit();
-        } catch (RuntimeException e) {
-            LOG.error("EmployeesDAO - createEmployee() failed, " + e.getMessage(), e);
-        } finally {
-            session.flush();
-            session.close();
-        }
-    }
     
     @Override
     public void addToDepartment(Department department, List<Employees> employees) {

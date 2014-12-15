@@ -17,23 +17,6 @@ public class EmployeesDAO extends GenericDaoImpl<Employees, Integer> implements 
     private static final Logger LOG = org.apache.log4j.Logger.getLogger(EmployeesDAO.class);
     
     @Override
-    public void create(Employees employee, Address address, Department department) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.beginTransaction();
-            employee.setAddress(address);
-            employee.setDepartment(department);
-            session.save(employee);
-            session.getTransaction().commit();
-        } catch (RuntimeException e) {
-            LOG.error("EmployeesDAO - createEmployee() failed, " + e.getMessage(), e);
-        } finally {
-            session.flush();
-            session.close();
-        }
-    }
-    
-    @Override
     public void addToDepartment(Department department, List<Employees> employees) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {

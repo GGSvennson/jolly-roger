@@ -1,6 +1,8 @@
 package com.primefaces.hibernate.model;
 
 import java.io.Serializable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 public class Users implements Serializable {
     
@@ -45,6 +47,7 @@ public class Users implements Serializable {
         this.employee = employee;
     }
 
+    @Enumerated(EnumType.STRING)
     public Roles getRoles() {
         return roles;
     }

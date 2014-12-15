@@ -12,8 +12,11 @@
     <property name="password" type="java.lang.String">
       <column name="password"/>
     </property>
-    <property access="property" insert="true" name="roles" not-null="true" type="com.primefaces.hibernate.model.RolesUserType" update="true">
-      <column name="roles_user_type"/>
+    <property name="roles" column="roles_user_type">
+        <type name="org.hibernate.type.EnumType">
+            <param name="enumClass">com.primefaces.hibernate.model.Roles</param>
+            <param name="useNamed">true</param>
+        </type>
     </property>
   </class>
 </hibernate-mapping>

@@ -27,8 +27,8 @@ public class LoginBean implements Serializable {
     private Users user = new Users();
     private Employees employee = new Employees();
     
-    private Roles roleAdmin = Roles.ADMINISTRATOR;
-    private Roles roleUser = Roles.USER;
+    private Roles roleAdmin = Roles.Administrator;
+    private Roles roleUser = Roles.User;
     
     @ManagedProperty(value="#{resourceBundleBean}")
     private ResourceBundleBean resourceBundleBean;

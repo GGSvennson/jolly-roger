@@ -5,15 +5,13 @@ import java.util.List;
 
 import com.primefaces.hibernate.model.Users;
 import com.primefaces.hibernate.generic.GenericDao;
-import com.primefaces.hibernate.model.Address;
-import com.primefaces.hibernate.model.Department;
 import com.primefaces.hibernate.model.Employees;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 public interface IUsersDAO extends GenericDao<Users, Integer> {
     
-    public void create(Address address, Department department, Employees employee, Users user)
+    public void create(Employees employee, Users user)
             throws UnableToSaveException, NoSuchAlgorithmException, UnsupportedEncodingException;
     public Users findByUsername(String username);
     public Users findByPassword(String password);

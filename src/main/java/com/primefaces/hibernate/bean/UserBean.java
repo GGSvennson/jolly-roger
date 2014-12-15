@@ -59,8 +59,8 @@ public class UserBean implements Serializable {
     private List<Country> countries = new ArrayList<>();
     private Roles[] roleses;
     
-    private final Roles roleAdmin = Roles.ADMINISTRATOR;
-    private final Roles roleUser = Roles.USER;
+    private final Roles roleAdmin = Roles.Administrator;
+    private final Roles roleUser = Roles.User;
     
     private int employeeId;
     
@@ -157,7 +157,9 @@ public class UserBean implements Serializable {
                     ));
             } else {
                 newUser.setRoles(this.roleUser);
-                usersDAO.create(newAddress, newDepartment, newEmployee, newUser);
+                newEmployee.setAddress(newAddress);
+                newEmployee.setDepartment(newDepartment);
+                usersDAO.create(newEmployee, newUser);
 
                 RequestContext rc = RequestContext.getCurrentInstance();
                 rc.execute("PF('createEmployee').hide()");
@@ -274,7 +276,7 @@ public class UserBean implements Serializable {
     public void changeEmployee(SelectEvent event) {
         selectedEmployee = (Employees) event.getObject();
         Users user = usersDAO.findByEmployee(selectedEmployee);
-        if(user.getRoles() != Roles.USER) {
+        if(user.getRoles() != this.roleUser) {
             selectedEmployee = new Employees();
             FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(
