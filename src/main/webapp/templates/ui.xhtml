@@ -11,7 +11,7 @@
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>Hibernate - PrimeFaces</title>
+            <title><h:outputText value="#{templates.ui.title}"/></title>
             <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/favicon.png" />
         </f:facet>
         
@@ -50,7 +50,11 @@
             </div>
             
             <div id="menu">
-                <h:outputText value="#{msgs['templates.ui.menu.welcome']} #{loginBean.employee.name}" rendered="#{loginBean.user.roles ne null}" />
+                <p:panelGrid id="welcomePanelGrid" columns="3" style="margin:0 auto;" rendered="#{loginBean.user.roles ne null}">
+                    <h:outputText value="#{msgs['templates.ui.menu.welcome']} #{loginBean.employee.name}" />
+                    #{' | '}
+                    <p:commandLink value="#{msgs['templates.ui.menu.sign.out']}" action="#{loginBean.signOut}" ajax="false" />
+                </p:panelGrid>
             </div>
             
             <div id="globallanguageswitcher">

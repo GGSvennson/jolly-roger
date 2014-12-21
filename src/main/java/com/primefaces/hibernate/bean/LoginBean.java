@@ -113,7 +113,7 @@ public class LoginBean implements Serializable {
     
     
  
-    public void logout() throws IOException {
+    public void signOut() throws IOException {
         HttpSession session = HttpSessionUtil.getSession(false);
         session.removeAttribute("user");
         session.invalidate();

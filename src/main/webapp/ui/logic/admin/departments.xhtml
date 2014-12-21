@@ -59,15 +59,6 @@
                     <h:outputText value="#{employee.insertTime}"></h:outputText>
                 </p:column>
             </p:dataTable>
-        
-            <br/>
-        
-            <p:panelGrid id="logoutPanelGrid" columns="1" style="margin:0 auto;">
-                <f:facet name="header">
-                    Logout
-                </f:facet>
-                <p:commandButton value="Logout" action="#{loginBean.logout}" ajax="false" icon="ui-icon-check" />
-            </p:panelGrid>
         </h:form>
         
         <p:dialog id="deleteDialog" header="#{msgs['ui.logic.departments.delete.department.header']}" widgetVar="deleteDepartment" >
