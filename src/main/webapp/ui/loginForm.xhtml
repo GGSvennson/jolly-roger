@@ -31,7 +31,7 @@
                     </p:panelGrid>
                     
                     <f:facet name="footer">
-                        <p:commandButton value="Login" actionListener="#{loginBean.loginProject()}"
+                        <p:commandButton value="Login" actionListener="#{loginBean.login}"
                                          oncomplete="Recaptcha.reload()" onerror="Recaptcha.reload()"
                                          update="panelGrid" process="userLoginForm" ajax="false" icon="ui-icon-check" />
                     </f:facet>

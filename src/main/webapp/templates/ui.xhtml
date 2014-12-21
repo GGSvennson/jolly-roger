@@ -50,11 +50,13 @@
             </div>
             
             <div id="menu">
-                <p:panelGrid id="welcomePanelGrid" columns="3" style="margin:0 auto;" rendered="#{loginBean.user.roles ne null}">
-                    <h:outputText value="#{msgs['templates.ui.menu.welcome']} #{loginBean.employee.name}" />
-                    #{' | '}
-                    <p:commandLink value="#{msgs['templates.ui.menu.sign.out']}" action="#{loginBean.signOut}" ajax="false" />
-                </p:panelGrid>
+                <h:form id="welcomeForm">
+                    <p:panelGrid id="welcomePanelGrid" columns="3" style="margin:0 auto;" rendered="#{loginBean.user.roles ne null}">
+                        <h:outputText value="#{msgs['templates.ui.menu.welcome']} #{loginBean.employee.name}" />
+                        #{' | '}
+                        <p:commandLink value="#{msgs['templates.ui.menu.sign.out']}" action="#{loginBean.signOut}" ajax="false" />
+                    </p:panelGrid>
+                </h:form>
             </div>
             
             <div id="globallanguageswitcher">

@@ -84,7 +84,7 @@ public class LoginBean implements Serializable {
         this.resourceBundleBean = resourceBundleBean;
     }
 
-    public void loginProject() throws IOException, NoSuchAlgorithmException {
+    public void login() throws IOException, NoSuchAlgorithmException {
         
         UsersDAO usersDAO = new UsersDAO();
         user = usersDAO.findByUsernameAndPassword(user.getUsername(), user.getPassword());
