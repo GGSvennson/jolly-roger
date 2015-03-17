@@ -17,8 +17,6 @@ Hibernate is implemented using Hibernate HQL and Criteria. Both have previously 
 In a first approach would use Hibernate HQL API but the purpose of the application is to solve some unsolved FAQs concerning
 the Hibernate Criteria API.
 
-The website is installed in http://www.josealvarezdelara.com/HibernateWebApp-0.0.1-SNAPSHOT/ where you can try how it works.
-
 There are two kinds of users, Administrator and Users. The Administrator can operate on the site while the
 Users can only view. The defaul user is Lisa who has role of Administrator. The username/password of Lisa are
 lisa/lisapass being the password encoded using the SHA256 algorithm.
